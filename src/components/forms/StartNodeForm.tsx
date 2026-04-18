@@ -8,19 +8,17 @@ interface Props {
 
 export function StartNodeForm({ data, onChange }: Props) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
+        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase block mb-2">
           Start Title
         </label>
         <input
           type="text"
           value={data.startTitle || ''}
           onChange={(e) => onChange({ startTitle: e.target.value, label: e.target.value || 'Start' })}
-          placeholder="e.g. Employee Onboarding"
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600
-                     focus:outline-none focus:border-green-500/50 transition-colors"
+          placeholder="e.g. Event Trigger"
+          className="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-medium"
         />
       </div>
 
@@ -28,8 +26,8 @@ export function StartNodeForm({ data, onChange }: Props) {
         label="Metadata"
         pairs={data.metadata || []}
         onChange={(metadata) => onChange({ metadata })}
-        keyPlaceholder="Field name"
-        valuePlaceholder="Default value"
+        keyPlaceholder="Field context"
+        valuePlaceholder="Default inject"
       />
     </div>
   )

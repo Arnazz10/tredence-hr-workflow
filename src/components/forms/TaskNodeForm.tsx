@@ -10,67 +10,60 @@ export function TaskNodeForm({ data, onChange }: Props) {
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
-          Title <span className="text-red-400">*</span>
+        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase block mb-2">
+          Task Title <span className="text-red-400">*</span>
         </label>
         <input
           type="text"
           value={data.title || ''}
           onChange={(e) => onChange({ title: e.target.value, label: e.target.value || 'New Task' })}
-          placeholder="e.g. Collect Documents"
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600
-                     focus:outline-none focus:border-blue-500/50 transition-colors"
+          placeholder="e.g. Schedule Interview"
+          className="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-medium"
         />
       </div>
 
       <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
+        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase block mb-2">
           Description
         </label>
         <textarea
           value={data.description || ''}
           onChange={(e) => onChange({ description: e.target.value })}
-          placeholder="Describe the task..."
+          placeholder="Brief task context..."
           rows={3}
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600 resize-none
-                     focus:outline-none focus:border-blue-500/50 transition-colors"
+          className="glass-input w-full rounded-xl px-4 py-2.5 text-sm resize-none"
         />
       </div>
 
-      <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
-          Assignee
-        </label>
-        <input
-          type="text"
-          value={data.assignee || ''}
-          onChange={(e) => onChange({ assignee: e.target.value })}
-          placeholder="e.g. John Doe"
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600
-                     focus:outline-none focus:border-blue-500/50 transition-colors"
-        />
-      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="text-[10px] font-semibold tracking-wider text-purple-300/80 uppercase block mb-1.5">
+            Assignee
+          </label>
+          <input
+            type="text"
+            value={data.assignee || ''}
+            onChange={(e) => onChange({ assignee: e.target.value })}
+            placeholder="@user"
+            className="glass-input w-full rounded-lg px-3 py-2 text-xs"
+          />
+        </div>
 
-      <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
-          Due Date
-        </label>
-        <input
-          type="date"
-          value={data.dueDate || ''}
-          onChange={(e) => onChange({ dueDate: e.target.value })}
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600
-                     focus:outline-none focus:border-blue-500/50 transition-colors
-                     [color-scheme:dark]"
-        />
+        <div>
+          <label className="text-[10px] font-semibold tracking-wider text-purple-300/80 uppercase block mb-1.5">
+            Due Date
+          </label>
+          <input
+            type="date"
+            value={data.dueDate || ''}
+            onChange={(e) => onChange({ dueDate: e.target.value })}
+            className="glass-input w-full rounded-lg px-3 py-2 text-xs [color-scheme:dark]"
+          />
+        </div>
       </div>
 
       <KeyValueFields
-        label="Custom Fields"
+        label="Context Variables"
         pairs={data.customFields || []}
         onChange={(customFields) => onChange({ customFields })}
       />

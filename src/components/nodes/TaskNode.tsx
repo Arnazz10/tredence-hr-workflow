@@ -11,59 +11,41 @@ export function TaskNode({ id, data, selected }: NodeProps<TaskNodeType>) {
     <div
       onClick={() => selectNode(id)}
       className={`
-        relative min-w-[200px] rounded-xl bg-[#1a1d24] border-2
-        transition-all duration-200 shadow-lg cursor-pointer
-        ${selected ? 'border-blue-400 shadow-blue-400/20' : 'border-blue-500/30 hover:border-blue-400/60'}
+        relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
+        transition-all duration-300 cursor-pointer
+        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-3 !h-3 !bg-blue-500 !border-2 !border-blue-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
       />
 
-      <div className="h-1.5 w-full rounded-t-xl bg-gradient-to-r from-blue-400 to-cyan-500" />
-
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-xs">
-            ✎
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-blue-400/70">
-            Task
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/70">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+                <line x1="8" y1="8" x2="16" y2="8"/>
+                <line x1="8" y1="16" x2="16" y2="16"/>
+             </svg>
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white/50">
+            Manual Task
           </span>
         </div>
 
-        <p className="text-sm font-medium text-gray-100 truncate">
+        <p className="text-base font-medium text-white/90 mt-3 truncate">
           {data.title || 'Untitled Task'}
         </p>
-
-        {data.assignee && (
-          <p className="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-            <span>👤</span> {data.assignee}
-          </p>
-        )}
-
-        {data.dueDate && (
-          <p className="text-[10px] text-gray-500 mt-0.5 flex items-center gap-1">
-            <span>📅</span> {data.dueDate}
-          </p>
-        )}
-
-        {/* Stats row */}
-        <div className="flex gap-2 mt-2">
-          {data.customFields && data.customFields.length > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] text-blue-400">
-              ⚙ {data.customFields.length} fields
-            </span>
-          )}
-        </div>
       </div>
 
       <Handle
         type="source"
         position={Position.Bottom}
-        className="!w-3 !h-3 !bg-blue-500 !border-2 !border-blue-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-bottom-[9.5px] z-10"
       />
     </div>
   )

@@ -11,38 +11,32 @@ export function EndNode({ id, data, selected }: NodeProps<EndNodeType>) {
     <div
       onClick={() => selectNode(id)}
       className={`
-        relative min-w-[180px] rounded-xl bg-[#1a1d24] border-2
-        transition-all duration-200 shadow-lg cursor-pointer
-        ${selected ? 'border-red-400 shadow-red-400/20' : 'border-red-500/30 hover:border-red-400/60'}
+        relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
+        transition-all duration-300 cursor-pointer
+        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-3 !h-3 !bg-red-500 !border-2 !border-red-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
       />
 
-      <div className="h-1.5 w-full rounded-t-xl bg-gradient-to-r from-red-400 to-rose-500" />
-
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500/20 text-red-400 text-xs">
-            ■
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-red-400/70">
-            End
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-transparent border border-white/10 text-white/50">
+             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+             </svg>
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white/50">
+            End Process
           </span>
         </div>
 
-        <p className="text-sm font-medium text-gray-100 truncate">
+        <p className="text-base font-medium text-white/60 mt-3 truncate">
           {data.endMessage || 'Workflow Complete'}
         </p>
-
-        {data.summaryFlag && (
-          <p className="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-            <span>📋</span> Summary enabled
-          </p>
-        )}
       </div>
     </div>
   )

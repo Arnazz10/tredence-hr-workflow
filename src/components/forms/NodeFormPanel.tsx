@@ -25,33 +25,36 @@ export function NodeFormPanel() {
   const typeLabel = getNodeTypeLabel(nodeType as NodeType)
 
   return (
-    <div className="w-[320px] min-w-[320px] bg-[#12141a] border-l border-gray-800/50 flex flex-col h-full overflow-hidden animate-slide-in-right">
+    <div className="glass-panel absolute top-[100px] right-6 bottom-6 w-[340px] z-10 flex flex-col rounded-2xl overflow-hidden animate-slide-in-right">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-gray-800/50">
+      <div className="px-6 py-5 border-b border-white/5 bg-white/[0.02]">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <div
-              className="h-3 w-3 rounded-full"
-              style={{ backgroundColor: accentColor }}
+              className="h-2.5 w-2.5 rounded-full"
+              style={{
+                backgroundColor: accentColor,
+                boxShadow: `0 0 10px ${accentColor}`,
+              }}
             />
-            <h3 className="text-sm font-semibold text-gray-200">
-              {typeLabel} Node
+            <h3 className="text-sm font-semibold tracking-widest uppercase text-white">
+              {typeLabel} Properties
             </h3>
           </div>
           <button
             onClick={close}
-            className="text-gray-500 hover:text-gray-300 transition-colors text-lg leading-none"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all text-xs"
           >
-            ×
+            ✕
           </button>
         </div>
-        <p className="text-[10px] text-gray-600 mt-1">
-          Configure node properties
+        <p className="text-[11px] text-white/40 mt-1.5 ml-5.5">
+          ID: {nodeData.label || 'Node'}
         </p>
       </div>
 
       {/* Form content */}
-      <div className="flex-1 overflow-y-auto px-5 py-4">
+      <div className="flex-1 overflow-y-auto px-6 py-5 custom-scrollbar">
         {nodeType === 'startNode' && (
           <StartNodeForm data={nodeData as StartNodeData} onChange={update} />
         )}
@@ -73,13 +76,13 @@ export function NodeFormPanel() {
       </div>
 
       {/* Footer actions */}
-      <div className="px-5 py-3 border-t border-gray-800/50">
+      <div className="px-6 py-4 border-t border-white/5 bg-white/[0.01]">
         <button
           onClick={() => {
             deleteSelected()
           }}
-          className="w-full py-2 rounded-lg bg-red-500/10 text-red-400 text-xs font-medium
-                     hover:bg-red-500/20 transition-colors"
+          className="w-full py-2.5 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-semibold uppercase tracking-wider
+                     hover:bg-red-500/20 hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all"
         >
           Delete Node
         </button>

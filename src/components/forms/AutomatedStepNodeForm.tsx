@@ -42,41 +42,36 @@ export function AutomatedStepNodeForm({ data, onChange }: Props) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
-          Title
+        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase block mb-2">
+          Node Title
         </label>
         <input
           type="text"
           value={data.title || ''}
           onChange={(e) => onChange({ title: e.target.value, label: e.target.value || 'Automated Step' })}
-          placeholder="e.g. Send Welcome Email"
-          className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                     text-sm text-gray-200 placeholder-gray-600
-                     focus:outline-none focus:border-purple-500/50 transition-colors"
+          placeholder="e.g. Notify Platform"
+          className="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-medium"
         />
       </div>
 
       <div>
-        <label className="text-xs font-medium text-gray-400 block mb-1.5">
-          Action
+        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase block mb-2">
+          Trigger Script
         </label>
         {loading ? (
-          <div className="flex items-center gap-2 text-xs text-gray-500 py-2">
-            <div className="h-3 w-3 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
-            Loading actions...
+          <div className="flex items-center gap-3 text-xs text-white/50 py-3 px-4 glass-input rounded-xl border-dashed">
+            <div className="h-4 w-4 rounded-full border-2 border-purple-500/50 border-t-purple-400 animate-spin" />
+            Loading registry...
           </div>
         ) : (
           <select
             value={data.actionId || ''}
             onChange={(e) => handleActionChange(e.target.value)}
-            className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-2
-                       text-sm text-gray-200
-                       focus:outline-none focus:border-purple-500/50 transition-colors
-                       [color-scheme:dark]"
+            className="glass-input w-full rounded-xl px-4 py-2.5 text-sm font-medium cursor-pointer [color-scheme:dark]"
           >
-            <option value="">Select an action...</option>
+            <option value="">Select integration...</option>
             {actions.map((action) => (
               <option key={action.id} value={action.id}>
                 {action.label}
@@ -86,26 +81,23 @@ export function AutomatedStepNodeForm({ data, onChange }: Props) {
         )}
       </div>
 
-      {/* Dynamic param fields */}
       {selectedAction && selectedAction.params.length > 0 && (
-        <div>
-          <label className="text-xs font-medium text-gray-400 block mb-2">
-            Parameters
+        <div className="mt-4 p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+          <label className="text-[10px] font-semibold tracking-widest text-purple-400/80 uppercase block mb-3">
+            Execution Parameters
           </label>
-          <div className="space-y-3 pl-2 border-l-2 border-purple-500/20">
+          <div className="space-y-3 pl-3 border-l-2 border-purple-500/30">
             {selectedAction.params.map((param) => (
               <div key={param}>
-                <label className="text-[10px] font-medium text-gray-500 block mb-1 capitalize">
+                <label className="text-[10px] font-medium text-white/60 block mb-1.5 capitalize">
                   {param}
                 </label>
                 <input
                   type="text"
                   value={data.actionParams?.[param] || ''}
                   onChange={(e) => handleParamChange(param, e.target.value)}
-                  placeholder={`Enter ${param}...`}
-                  className="w-full rounded-lg bg-[#0f1117] border border-gray-700/50 px-3 py-1.5
-                             text-xs text-gray-200 placeholder-gray-600
-                             focus:outline-none focus:border-purple-500/50 transition-colors"
+                  placeholder={`Value for ${param}`}
+                  className="glass-input w-full rounded-lg px-3 py-1.5 text-xs"
                 />
               </div>
             ))}

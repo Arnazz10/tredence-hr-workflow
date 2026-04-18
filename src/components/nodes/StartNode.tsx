@@ -11,42 +11,32 @@ export function StartNode({ id, data, selected }: NodeProps<StartNodeType>) {
     <div
       onClick={() => selectNode(id)}
       className={`
-        relative min-w-[180px] rounded-xl bg-[#1a1d24] border-2
-        transition-all duration-200 shadow-lg cursor-pointer
-        ${selected ? 'border-green-400 shadow-green-400/20' : 'border-green-500/30 hover:border-green-400/60'}
+        relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
+        transition-all duration-300 cursor-pointer
+        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
       `}
     >
-      {/* Top accent bar */}
-      <div className="h-1.5 w-full rounded-t-xl bg-gradient-to-r from-green-400 to-emerald-500" />
-
-      <div className="px-4 py-3">
-        {/* Type badge */}
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500/20 text-green-400 text-xs">
-            ▶
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-green-400/70">
-            Start
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 border border-white/20 text-white shadow-[0_0_10px_rgba(255,255,255,0.1)]">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+               <polygon points="5 3 19 12 5 21 5 3"/>
+             </svg>
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white/50">
+            Start Trigger
           </span>
         </div>
 
-        {/* Title */}
-        <p className="text-sm font-medium text-gray-100 truncate">
+        <p className="text-base font-medium text-white/90 mt-3 truncate">
           {data.startTitle || 'Workflow Start'}
         </p>
-
-        {/* Metadata count */}
-        {data.metadata && data.metadata.length > 0 && (
-          <p className="text-[10px] text-gray-500 mt-1">
-            {data.metadata.length} metadata field{data.metadata.length > 1 ? 's' : ''}
-          </p>
-        )}
       </div>
 
       <Handle
         type="source"
         position={Position.Bottom}
-        className="!w-3 !h-3 !bg-green-500 !border-2 !border-green-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-bottom-[9.5px] z-10"
       />
     </div>
   )

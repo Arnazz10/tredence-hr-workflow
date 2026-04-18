@@ -11,49 +11,38 @@ export function ApprovalNode({ id, data, selected }: NodeProps<ApprovalNodeType>
     <div
       onClick={() => selectNode(id)}
       className={`
-        relative min-w-[200px] rounded-xl bg-[#1a1d24] border-2
-        transition-all duration-200 shadow-lg cursor-pointer
-        ${selected ? 'border-amber-400 shadow-amber-400/20' : 'border-amber-500/30 hover:border-amber-400/60'}
+        relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
+        transition-all duration-300 cursor-pointer
+        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-3 !h-3 !bg-amber-500 !border-2 !border-amber-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
       />
 
-      <div className="h-1.5 w-full rounded-t-xl bg-gradient-to-r from-amber-400 to-yellow-500" />
-
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 text-xs">
-            ✓
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-400/70">
-            Approval
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/70">
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+               <polyline points="20 6 9 17 4 12"/>
+             </svg>
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white/50">
+            Approval Gate
           </span>
         </div>
 
-        <p className="text-sm font-medium text-gray-100 truncate">
-          {data.title || 'Approval Required'}
+        <p className="text-base font-medium text-white/90 mt-3 truncate">
+          {data.title || 'Pending Approval'}
         </p>
-
-        <div className="flex flex-wrap gap-1.5 mt-2">
-          <span className="inline-flex items-center rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] text-amber-400">
-            {data.approverRole || 'Manager'}
-          </span>
-          {data.autoApproveThreshold > 0 && (
-            <span className="inline-flex items-center rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] text-green-400">
-              Auto ≤ {data.autoApproveThreshold}
-            </span>
-          )}
-        </div>
       </div>
 
       <Handle
         type="source"
         position={Position.Bottom}
-        className="!w-3 !h-3 !bg-amber-500 !border-2 !border-amber-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-bottom-[9.5px] z-10"
       />
     </div>
   )

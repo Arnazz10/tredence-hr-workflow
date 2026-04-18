@@ -4,45 +4,45 @@ interface SidebarNodeCard {
   type: NodeType
   label: string
   icon: string
-  color: string
+  glowClass: string
   description: string
 }
 
 const nodeCards: SidebarNodeCard[] = [
   {
     type: 'startNode',
-    label: 'Start',
+    label: 'Start Trigger',
     icon: '▶',
-    color: 'from-green-500 to-emerald-600',
-    description: 'Workflow entry point',
+    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    description: 'Event-based entry point',
   },
   {
     type: 'taskNode',
-    label: 'Task',
-    icon: '✎',
-    color: 'from-blue-500 to-cyan-600',
-    description: 'Assign work to team',
+    label: 'Manual Task',
+    icon: '▤',
+    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    description: 'Assign work to a team member',
   },
   {
     type: 'approvalNode',
-    label: 'Approval',
+    label: 'Approval Gate',
     icon: '✓',
-    color: 'from-amber-500 to-yellow-600',
-    description: 'Require sign-off',
+    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    description: 'Require explicit sign-off',
   },
   {
     type: 'automatedStepNode',
-    label: 'Automated',
+    label: 'Automation',
     icon: '⚡',
-    color: 'from-purple-500 to-pink-600',
-    description: 'Run automated action',
+    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    description: 'Run background action',
   },
   {
     type: 'endNode',
-    label: 'End',
+    label: 'End Process',
     icon: '■',
-    color: 'from-red-500 to-rose-600',
-    description: 'Workflow endpoint',
+    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white/50 border-white/10',
+    description: 'Terminate workflow path',
   },
 ]
 
@@ -56,14 +56,14 @@ export function DraggableSidebar() {
   }
 
   return (
-    <aside className="w-[260px] min-w-[260px] bg-[#12141a] border-r border-gray-800/50 flex flex-col h-full overflow-hidden">
+    <aside className="glass-panel absolute top-[100px] left-6 bottom-6 w-[280px] z-10 flex flex-col rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-5 border-b border-gray-800/50">
-        <h2 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">
-          Node Palette
+      <div className="px-6 py-5 border-b border-white/5 bg-white/[0.02]">
+        <h2 className="text-sm font-semibold text-white tracking-widest uppercase">
+          Nodes
         </h2>
-        <p className="text-xs text-gray-600 mt-1">
-          Drag nodes onto the canvas
+        <p className="text-[11px] text-white/50 mt-1">
+          Drag elements to canvas
         </p>
       </div>
 
@@ -74,49 +74,41 @@ export function DraggableSidebar() {
             key={card.type}
             draggable
             onDragStart={(e) => onDragStart(e, card.type)}
-            className="group relative flex items-center gap-3 rounded-xl bg-[#1a1d24] border border-gray-800/50
-                       px-4 py-3.5 cursor-grab active:cursor-grabbing
-                       transition-all duration-200
-                       hover:border-gray-600/50 hover:bg-[#1e2129] hover:shadow-lg hover:translate-y-[-1px]"
+            className="group relative flex items-center gap-4 rounded-xl bg-black/20 border border-white/5
+                       px-4 py-4 cursor-grab active:cursor-grabbing
+                       transition-all duration-300
+                       hover:border-white/20 hover:bg-white/10 hover:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:-translate-y-0.5"
           >
             {/* Icon */}
             <div
-              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
-                         bg-gradient-to-br ${card.color} text-white text-sm shadow-md`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#050511] border transition-colors ${card.glowClass}`}
             >
               {card.icon}
             </div>
 
             {/* Text */}
             <div className="min-w-0">
-              <p className="text-sm font-medium text-gray-200 group-hover:text-white transition-colors">
+              <p className="text-sm font-semibold tracking-wide text-gray-200 group-hover:text-white transition-colors">
                 {card.label}
               </p>
-              <p className="text-[10px] text-gray-500 mt-0.5 truncate">
+              <p className="text-[10px] text-gray-500 mt-1 truncate">
                 {card.description}
               </p>
             </div>
 
-            {/* Drag indicator */}
-            <div className="ml-auto text-gray-700 group-hover:text-gray-500 transition-colors">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <circle cx="3" cy="2" r="1.2" />
-                <circle cx="3" cy="6" r="1.2" />
-                <circle cx="3" cy="10" r="1.2" />
-                <circle cx="9" cy="2" r="1.2" />
-                <circle cx="9" cy="6" r="1.2" />
-                <circle cx="9" cy="10" r="1.2" />
+            {/* Drag Handle */}
+            <div className="absolute right-4 opacity-0 group-hover:opacity-50 transition-opacity">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                <circle cx="4" cy="3" r="1.5" />
+                <circle cx="4" cy="7" r="1.5" />
+                <circle cx="4" cy="11" r="1.5" />
+                <circle cx="10" cy="3" r="1.5" />
+                <circle cx="10" cy="7" r="1.5" />
+                <circle cx="10" cy="11" r="1.5" />
               </svg>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Footer */}
-      <div className="px-5 py-4 border-t border-gray-800/50">
-        <p className="text-[10px] text-gray-600 text-center">
-          HR Workflow Designer v1.0
-        </p>
       </div>
     </aside>
   )

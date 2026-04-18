@@ -6,57 +6,43 @@ type AutomatedStepNodeType = Node<AutomatedStepNodeData, 'automatedStepNode'>
 
 export function AutomatedStepNode({ id, data, selected }: NodeProps<AutomatedStepNodeType>) {
   const selectNode = useWorkflowStore((s) => s.selectNode)
-  const paramCount = data.actionParams ? Object.keys(data.actionParams).length : 0
 
   return (
     <div
       onClick={() => selectNode(id)}
       className={`
-        relative min-w-[200px] rounded-xl bg-[#1a1d24] border-2
-        transition-all duration-200 shadow-lg cursor-pointer
-        ${selected ? 'border-purple-400 shadow-purple-400/20' : 'border-purple-500/30 hover:border-purple-400/60'}
+        relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
+        transition-all duration-300 cursor-pointer
+        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-3 !h-3 !bg-purple-500 !border-2 !border-purple-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
       />
 
-      <div className="h-1.5 w-full rounded-t-xl bg-gradient-to-r from-purple-400 to-pink-500" />
-
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-500/20 text-purple-400 text-xs">
-            ⚡
-          </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-purple-400/70">
-            Automated
+      <div className="px-6 py-5">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/70">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+             </svg>
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white/50">
+            Automation
           </span>
         </div>
 
-        <p className="text-sm font-medium text-gray-100 truncate">
+        <p className="text-base font-medium text-white/90 mt-3 truncate">
           {data.title || 'Automated Step'}
         </p>
-
-        <div className="flex flex-wrap gap-1.5 mt-2">
-          {data.actionId && (
-            <span className="inline-flex items-center rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] text-purple-400">
-              {data.actionId}
-            </span>
-          )}
-          {paramCount > 0 && (
-            <span className="inline-flex items-center rounded-full bg-pink-500/10 px-2 py-0.5 text-[10px] text-pink-400">
-              {paramCount} params
-            </span>
-          )}
-        </div>
       </div>
 
       <Handle
         type="source"
         position={Position.Bottom}
-        className="!w-3 !h-3 !bg-purple-500 !border-2 !border-purple-300 !rounded-full"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-bottom-[9.5px] z-10"
       />
     </div>
   )

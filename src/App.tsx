@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import {
   ReactFlow,
   Background,
@@ -13,6 +13,7 @@ import '@xyflow/react/dist/style.css'
 import { DraggableSidebar } from './components/sidebar/DraggableSidebar'
 import { NodeFormPanel } from './components/forms/NodeFormPanel'
 import { WorkflowSandboxPanel } from './components/sandbox/WorkflowSandboxPanel'
+import { LandingPage } from './components/LandingPage'
 import {
   StartNode,
   TaskNode,
@@ -32,7 +33,7 @@ const nodeTypes: NodeTypes = {
   endNode: EndNode,
 }
 
-function WorkflowCanvas() {
+function WorkflowCanvas({ onNavHome }: { onNavHome: () => void }) {
   const reactFlowWrapper = useRef<HTMLDivElement>(null)
   const { screenToFlowPosition } = useReactFlow()
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, createNode } =
@@ -128,34 +129,93 @@ function WorkflowCanvas() {
 
   return (
     <div
-      className="flex flex-col flex-1 h-full overflow-hidden outline-none"
+      className="relative flex flex-col h-screen w-screen overflow-hidden outline-none"
       onKeyDown={onKeyDown}
       tabIndex={0}
     >
-      {/* ─── Top Toolbar ─────────────────────────────────────────── */}
-      <header className="flex items-center justify-between px-6 py-3 bg-[#12141a] border-b border-gray-800/50 shrink-0 z-10">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm font-bold shadow-lg shadow-indigo-500/20">
-              H
-            </div>
+      {/* ─── React Flow Canvas (Background Layer) ──────────────────── */}
+      <div className="absolute inset-0 z-0" ref={reactFlowWrapper}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+          onPaneClick={onPaneClick}
+          nodeTypes={nodeTypes}
+          fitView
+          proOptions={{ hideAttribution: true }}
+          defaultEdgeOptions={{
+            animated: true,
+          }}
+        >
+          <Background
+            variant={BackgroundVariant.Dots}
+            gap={32}
+            size={1.5}
+            color="rgba(255, 255, 255, 0.05)"
+          />
+          <Controls 
+            showInteractive={false} 
+            position="bottom-left" 
+            style={{ 
+              marginBottom: '24px', 
+              marginLeft: '320px', 
+              border: '1px solid rgba(255,255,255,0.1)', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              overflow: 'hidden',
+              backgroundColor: 'rgba(11, 12, 21, 0.95)'
+            }} 
+          />
+          <MiniMap
+            position="bottom-right"
+            pannable
+            zoomable
+            nodeStrokeWidth={3}
+            style={{ margin: '24px 380px 24px 24px', backgroundColor: 'rgba(11, 12, 21, 0.8)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px' }}
+            maskColor="rgba(0, 0, 0, 0.3)"
+            nodeColor="rgba(255, 255, 255, 0.2)"
+          />
+        </ReactFlow>
+      </div>
+
+      {/* ─── Floating Top Toolbar Layer ────────────────────────────── */}
+      <header className="glass-panel absolute top-6 left-6 right-6 z-10 flex items-center justify-between px-6 py-3 rounded-2xl">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={onNavHome}
+              className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white hover:text-black transition-all group"
+              title="Return to Home"
+            >
+               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
+                  <path d="M15 18l-6-6 6-6" />
+               </svg>
+            </button>
             <input
               type="text"
               value={workflowTitle}
               onChange={(e) => setWorkflowTitle(e.target.value)}
-              className="bg-transparent text-sm font-semibold text-gray-200 border-none outline-none
-                         focus:ring-0 hover:text-white transition-colors w-[200px]"
+              className="bg-transparent text-base font-semibold text-white border-none outline-none
+                         focus:ring-0 hover:text-white/80 transition-colors w-[250px] placeholder-white/30"
+              placeholder="Untitled Workflow"
             />
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-gray-500">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-800/50 px-2.5 py-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-              {nodes.length} node{nodes.length !== 1 ? 's' : ''}
+          <div className="h-6 w-px bg-white/10" />
+
+          <div className="flex items-center gap-3 text-xs text-white/50 font-medium tracking-wide">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 border border-white/5">
+              <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              {nodes.length} N
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-800/50 px-2.5 py-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
-              {edges.length} edge{edges.length !== 1 ? 's' : ''}
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-2.5 py-1 border border-white/5">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+              {edges.length} E
             </span>
           </div>
         </div>
@@ -164,89 +224,58 @@ function WorkflowCanvas() {
           <button
             onClick={undo}
             title="Undo (Ctrl+Z)"
-            className="p-2 rounded-lg text-gray-500 hover:text-gray-300 hover:bg-gray-800/50 transition-colors text-sm"
+            className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200"
           >
-            ↩
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
           </button>
           <button
             onClick={redo}
             title="Redo (Ctrl+Shift+Z)"
-            className="p-2 rounded-lg text-gray-500 hover:text-gray-300 hover:bg-gray-800/50 transition-colors text-sm"
+            className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-all duration-200"
           >
-            ↪
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
           </button>
 
-          <div className="w-px h-5 bg-gray-800" />
+          <div className="h-6 w-px bg-white/10 mx-2" />
 
           <button
             onClick={handleImport}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs text-gray-400
-                       hover:text-gray-200 hover:bg-gray-800/50 transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-white/70
+                       hover:text-white hover:bg-white/10 transition-all duration-200 border border-transparent hover:border-white/10"
           >
-            📂 Import
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import
           </button>
           <button
             onClick={handleExport}
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs text-gray-400
-                       hover:text-gray-200 hover:bg-gray-800/50 transition-colors"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-white/70
+                       hover:text-white hover:bg-white/10 transition-all duration-200 border border-transparent hover:border-white/10"
           >
-            💾 Export
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
           </button>
 
-          <div className="w-px h-5 bg-gray-800" />
+          <div className="h-6 w-px bg-white/10 mx-2" />
 
           <WorkflowSandboxPanel />
         </div>
       </header>
 
-      {/* ─── Canvas + Side Panel ─────────────────────────────────── */}
-      <div className="flex flex-1 overflow-hidden">
-        <div className="flex-1 h-full" ref={reactFlowWrapper}>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            onPaneClick={onPaneClick}
-            nodeTypes={nodeTypes}
-            fitView
-            proOptions={{ hideAttribution: true }}
-            defaultEdgeOptions={{
-              animated: true,
-              style: { stroke: '#6366f1', strokeWidth: 2 },
-            }}
-            style={{ background: '#0f1117' }}
-          >
-            <Background
-              variant={BackgroundVariant.Dots}
-              gap={24}
-              size={1}
-              color="#1f2937"
-            />
-            <Controls showInteractive={false} position="bottom-left" />
-            <MiniMap
-              position="bottom-right"
-              pannable
-              zoomable
-              nodeStrokeWidth={3}
-            />
-          </ReactFlow>
-        </div>
+      {/* ─── Floating Sidebar ────────────────────────────────────── */}
+      <DraggableSidebar />
 
-        {selectedNodeId && <NodeFormPanel />}
-      </div>
+      {/* ─── Floating Settings Panel ─────────────────────────────── */}
+      {selectedNodeId && <NodeFormPanel />}
     </div>
   )
 }
 
 export default function App() {
-  return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#0a0b0f]">
-      <DraggableSidebar />
-      <WorkflowCanvas />
-    </div>
-  )
+  const [view, setView] = useState<'landing' | 'app'>('landing')
+
+  if (view === 'landing') {
+    return <LandingPage onEnterApp={() => setView('app')} />
+  }
+
+  return <WorkflowCanvas onNavHome={() => setView('landing')} />
 }
