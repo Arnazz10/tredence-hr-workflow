@@ -8,7 +8,7 @@
 ![HRnest Canvas View](./public/dashboard.png)
 *Visual Workflow Designer Canvas*
 
-**[🎥 Watch the full Video Demo](https://drive.google.com/file/d/1b-8rwoCYGsjdxai1Ru4IhvwZz3Fe5iQb/view?usp=sharing)**
+**[🎥 Watch the full Video Demo](https://drive.google.com/file/d/1T02NT4Lizbc2j9AfNOc-uNyN8iSnnvos/view?usp=sharing)**
 
 ## Project Overview
 An HR admin tool designed to visually create and test internal workflows (such as onboarding, leave approval, and document verification) using a drag-and-drop canvas interface. Note that this is a frontend prototype demonstrating complex interactive diagramming without a physical backend.

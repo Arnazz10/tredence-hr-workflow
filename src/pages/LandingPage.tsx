@@ -138,7 +138,7 @@ export function LandingPage({ onEnterApp, onNavPlans }: LandingPageProps) {
               </svg>
             </button>
             <iframe 
-              src="https://drive.google.com/file/d/1b-8rwoCYGsjdxai1Ru4IhvwZz3Fe5iQb/preview" 
+              src="https://drive.google.com/file/d/1T02NT4Lizbc2j9AfNOc-uNyN8iSnnvos/preview" 
               className="w-full h-full border-0"
               allow="autoplay"
               allowFullScreen
