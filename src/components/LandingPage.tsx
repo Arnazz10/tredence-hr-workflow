@@ -2,9 +2,10 @@ import { useState } from 'react'
 
 interface LandingPageProps {
   onEnterApp: () => void
+  onNavPlans: () => void
 }
 
-export function LandingPage({ onEnterApp }: LandingPageProps) {
+export function LandingPage({ onEnterApp, onNavPlans }: LandingPageProps) {
   const [showVideo, setShowVideo] = useState(false)
 
   return (
@@ -45,6 +46,13 @@ export function LandingPage({ onEnterApp }: LandingPageProps) {
             className="w-14 h-14 mix-blend-screen opacity-90 transition-transform hover:scale-105"
           />
         </div>
+
+        <button 
+          onClick={onNavPlans}
+          className="px-6 py-1.5 rounded-xl border-[2px] border-white bg-[#030303] text-white font-bold tracking-wide shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-white hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] hover:text-black transition-all"
+        >
+          Plans
+        </button>
       </nav>
 
       {/* Hero Content Layer */}

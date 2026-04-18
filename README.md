@@ -1,5 +1,7 @@
 # HR Workflow Designer Prototype
 
+![HRnest Preview](./public/preview.png)
+
 ## Project Overview
 An HR admin tool designed to visually create and test internal workflows (such as onboarding, leave approval, and document verification) using a drag-and-drop canvas interface. Note that this is a frontend prototype demonstrating complex interactive diagramming without a physical backend.
 
@@ -16,6 +18,37 @@ An HR admin tool designed to visually create and test internal workflows (such a
    ```
 
 3. Open the browser link provided in the terminal (usually `http://localhost:5173`).
+
+## 🚀 How to Deploy
+
+This project is built with Vite and React, making it extremely straightforward to deploy as a modern static site.
+
+### Option 1: Deploying to Vercel (Recommended)
+1. Commit and push your code to your GitHub repository.
+2. Log in to [Vercel](https://vercel.com/) and navigate to your dashboard.
+3. Click **Add New** > **Project**.
+4. Import your GitHub repository (`tredence-hr-workflow`).
+5. Vercel will automatically detect the Vite framework. Keep the default settings:
+   - **Framework Preset**: `Vite`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+6. Click **Deploy**. Your site will be live with a free HTTPS URL in less than a minute!
+
+### Option 2: Deploying to Netlify
+1. Log in to [Netlify](https://www.netlify.com/).
+2. Click **Add new site** > **Import an existing project**.
+3. Connect your GitHub account and authorize access to your repository.
+4. Select the repository. Ensure the build settings are correctly populated:
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist`
+5. Click **Deploy site**.
+
+### Option 3: Manual Standard Hosting (Nginx / Apache / AWS S3)
+If you need to host the application on your own infrastructure:
+1. Run `npm run build` locally or in your CI/CD pipeline.
+2. Vite will generate an optimized, minified production asset bundle inside the `dist/` directory.
+3. Upload the entire contents of the `dist/` directory to your web server root or storage bucket.
+4. If you add standard React Router later, ensure your server is configured to rewrite all requests pointing to `index.html`.
 
 ## Architecture Decisions
 

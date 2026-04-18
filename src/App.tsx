@@ -14,6 +14,7 @@ import { DraggableSidebar } from './components/sidebar/DraggableSidebar'
 import { NodeFormPanel } from './components/forms/NodeFormPanel'
 import { WorkflowSandboxPanel } from './components/sandbox/WorkflowSandboxPanel'
 import { LandingPage } from './components/LandingPage'
+import { PlansPage } from './components/PlansPage'
 import {
   StartNode,
   TaskNode,
@@ -33,7 +34,7 @@ const nodeTypes: NodeTypes = {
   endNode: EndNode,
 }
 
-function WorkflowCanvas({ onNavHome }: { onNavHome: () => void }) {
+function WorkflowCanvas({ onNavHome, onNavPlans }: { onNavHome: () => void; onNavPlans: () => void }) {
   const reactFlowWrapper = useRef<HTMLDivElement>(null)
   const { screenToFlowPosition } = useReactFlow()
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, createNode } =
@@ -186,7 +187,12 @@ function WorkflowCanvas({ onNavHome }: { onNavHome: () => void }) {
       {/* ─── Floating Top Toolbar Layer ────────────────────────────── */}
       <header className="glass-panel absolute top-6 left-6 right-6 z-10 flex items-center justify-between px-6 py-3 rounded-2xl">
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            <img 
+              src="/logo.png" 
+              alt="HRnest" 
+              className="w-10 h-10 mix-blend-screen opacity-90"
+            />
             <button 
               onClick={onNavHome}
               className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white hover:text-black transition-all group"
@@ -258,6 +264,15 @@ function WorkflowCanvas({ onNavHome }: { onNavHome: () => void }) {
           <div className="h-6 w-px bg-white/10 mx-2" />
 
           <WorkflowSandboxPanel />
+
+          <div className="h-6 w-px bg-white/10 mx-2" />
+
+          <button 
+            onClick={onNavPlans}
+            className="px-6 py-1.5 rounded-xl border-[2px] border-white bg-[#030303] text-white font-bold tracking-wide shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:bg-white hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] hover:text-black transition-all"
+          >
+            Plans
+          </button>
         </div>
       </header>
 
@@ -271,11 +286,15 @@ function WorkflowCanvas({ onNavHome }: { onNavHome: () => void }) {
 }
 
 export default function App() {
-  const [view, setView] = useState<'landing' | 'app'>('landing')
+  const [view, setView] = useState<'landing' | 'app' | 'plans'>('landing')
 
   if (view === 'landing') {
-    return <LandingPage onEnterApp={() => setView('app')} />
+    return <LandingPage onEnterApp={() => setView('app')} onNavPlans={() => setView('plans')} />
   }
 
-  return <WorkflowCanvas onNavHome={() => setView('landing')} />
+  if (view === 'plans') {
+    return <PlansPage onNavBack={() => setView('app')} />
+  }
+
+  return <WorkflowCanvas onNavHome={() => setView('landing')} onNavPlans={() => setView('plans')} />
 }
