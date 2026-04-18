@@ -7,41 +7,40 @@ interface SidebarNodeCard {
   glowClass: string
   description: string
 }
-
 const nodeCards: SidebarNodeCard[] = [
   {
     type: 'startNode',
     label: 'Start Trigger',
     icon: '▶',
-    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    glowClass: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10 shadow-[0_0_15px_rgba(52,211,153,0.15)]',
     description: 'Event-based entry point',
   },
   {
     type: 'taskNode',
     label: 'Manual Task',
     icon: '▤',
-    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    glowClass: 'text-blue-400 border-blue-500/20 bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.15)]',
     description: 'Assign work to a team member',
   },
   {
     type: 'approvalNode',
     label: 'Approval Gate',
     icon: '✓',
-    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    glowClass: 'text-amber-400 border-amber-500/20 bg-amber-500/10 shadow-[0_0_15px_rgba(251,191,36,0.15)]',
     description: 'Require explicit sign-off',
   },
   {
     type: 'automatedStepNode',
     label: 'Automation',
     icon: '⚡',
-    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white border-white/20',
+    glowClass: 'text-violet-400 border-violet-500/20 bg-violet-500/10 shadow-[0_0_15px_rgba(139,92,246,0.15)]',
     description: 'Run background action',
   },
   {
     type: 'endNode',
     label: 'End Process',
     icon: '■',
-    glowClass: 'shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white/50 border-white/10',
+    glowClass: 'text-rose-400 border-rose-500/20 bg-rose-500/10 shadow-[0_0_15px_rgba(244,63,94,0.15)]',
     description: 'Terminate workflow path',
   },
 ]
@@ -81,7 +80,7 @@ export function DraggableSidebar() {
           >
             {/* Icon */}
             <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#050511] border transition-colors ${card.glowClass}`}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-colors ${card.glowClass}`}
             >
               {card.icon}
             </div>

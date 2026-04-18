@@ -13,18 +13,18 @@ export function EndNode({ id, data, selected }: NodeProps<EndNodeType>) {
       className={`
         relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
         transition-all duration-300 cursor-pointer
-        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
+        ${selected ? 'border-rose-500/40 shadow-[0_0_20px_rgba(244,63,94,0.15)]' : 'border-white/10 hover:border-rose-500/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-rose-500/40 !-top-[9.5px] z-10"
       />
 
       <div className="px-6 py-5">
         <div className="flex items-center gap-3 mb-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-transparent border border-white/10 text-white/50">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400">
              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
              </svg>

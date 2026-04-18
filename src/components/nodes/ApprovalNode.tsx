@@ -13,18 +13,18 @@ export function ApprovalNode({ id, data, selected }: NodeProps<ApprovalNodeType>
       className={`
         relative min-w-[220px] rounded-[24px] bg-[#0c0c0c] border
         transition-all duration-300 cursor-pointer
-        ${selected ? 'border-white/40 shadow-[0_0_20px_rgba(255,255,255,0.15)]' : 'border-white/20 hover:border-white/30'}
+        ${selected ? 'border-amber-500/40 shadow-[0_0_20px_rgba(251,191,36,0.15)]' : 'border-white/10 hover:border-amber-500/30'}
       `}
     >
       <Handle
         type="target"
         position={Position.Top}
-        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-top-[9.5px] z-10"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-amber-500/40 !-top-[9.5px] z-10"
       />
 
       <div className="px-6 py-5">
         <div className="flex items-center gap-3 mb-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white/70">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400">
              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                <polyline points="20 6 9 17 4 12"/>
              </svg>
@@ -42,7 +42,7 @@ export function ApprovalNode({ id, data, selected }: NodeProps<ApprovalNodeType>
       <Handle
         type="source"
         position={Position.Bottom}
-        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-white/40 !-bottom-[9.5px] z-10"
+        className="!w-[18px] !h-[18px] !bg-[#0c0c0c] !border-[1.5px] !border-amber-500/40 !-bottom-[9.5px] z-10"
       />
     </div>
   )

@@ -33,13 +33,13 @@ export function KeyValueFields({
   return (
     <div className="mt-6 pt-4 border-t border-white/5">
       <div className="flex items-center justify-between mb-3">
-        <label className="text-[11px] font-semibold tracking-wider text-purple-300 uppercase">
+        <label className="text-[11px] font-semibold tracking-wider text-white/50 uppercase">
           {label}
         </label>
         <button
           type="button"
           onClick={addPair}
-          className="text-[10px] px-2.5 py-1 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 hover:shadow-[0_0_8px_rgba(168,85,247,0.3)] transition-all font-medium"
+          className="text-[10px] px-2.5 py-1 rounded-lg border border-white/20 bg-white/5 text-white/80 hover:bg-white hover:text-black hover:shadow-[0_0_10px_rgba(255,255,255,0.4)] transition-all font-medium"
         >
           + ADD ROW
         </button>
@@ -69,7 +69,7 @@ export function KeyValueFields({
             <button
               type="button"
               onClick={() => removePair(idx)}
-              className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-red-500/10 text-red-400 opacity-0 group-hover:opacity-100 hover:bg-red-500/20 transition-all text-[10px]"
+              className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-white/10 text-white/50 opacity-0 group-hover:opacity-100 hover:bg-white hover:text-black transition-all text-[10px]"
             >
               ✕
             </button>
